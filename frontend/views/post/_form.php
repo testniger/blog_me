@@ -23,7 +23,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'content')->textarea(['rows' => 7]) ?>
 
     <?= $form->field($model, 'author')->textInput(['maxlength' => true]) ?>
-
+    <?php $model->active = 1; $model->priority = 1 ?>
     <?= $form->field($model, 'priority')->radioList([
         1 => 'Обычный пост',
         2 => 'Платный пост',
@@ -37,9 +37,9 @@ use yii\widgets\ActiveForm;
     ]); ?>
 
     <?php if (!$model->isNewRecord){
-        echo $form->field($model, 'updated_at')->textInput(['readonly' => true, 'value' => date('Y-m-d H:i')]);
+        echo $form->field($model, 'updated_at')->hiddenInput(['value' => date('Y-m-d H:i')])->label(false);
     }else{
-        echo $form->field($model, 'created_at')->textInput([ 'value' => date('Y-m-d H:i')]);
+        echo $form->field($model, 'created_at')->hiddenInput([ 'value' => date('Y-m-d H:i')])->label(false);
     } ?>
 
 

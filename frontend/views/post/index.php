@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -16,23 +16,16 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Написать статью', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+    <div class="row">
+    <?php
+    foreach ($posts->models as $post) {
+        echo $this->render('shortView', [
+            'model' => $post
+        ]);
+    }
+    ?>
+    </div>
 
-            //'id',
-            'title',
-            //'alias',
-            'anons:ntext',
-            //'content:ntext',
-            // 'author',
-            // 'priority',
-            // 'active',
-            // 'created_at',
-            // 'updated_at',
 
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
 </div>
+

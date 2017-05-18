@@ -8,7 +8,8 @@ use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use frontend\models\CommentForm;
+use yii\helpers\Url;
 /**
  * PostController implements the CRUD actions for Post model.
  */
@@ -35,12 +36,12 @@ class PostController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => Post::find(),
-        ]);
+        $model = new Post();
+        $posts = $model->getPublishedPosts();
 
         return $this->render('index', [
-            'dataProvider' => $dataProvider,
+            'posts' => $posts,
+
         ]);
     }
 
@@ -53,6 +54,7 @@ class PostController extends Controller
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'commentForm' => new CommentForm(Url::to(['comments/add', 'id' => $id])),
         ]);
     }
 

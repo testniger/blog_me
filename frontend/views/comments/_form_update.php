@@ -9,19 +9,18 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="p-20">
+<div class="comment-form">
 
     <?php
-    $form = ActiveForm::begin(['action' => $model->action]);
+    $form = ActiveForm::begin();
     ?>
 
-    <?= $form->field($model, 'parent_id')->hiddenInput()->label(false) ?>
-    <?= $form->field($model, 'created_at')->hiddenInput([ 'value' => date('Y-m-d H:i')])->label(false); ?>
     <?= $form->field($model, 'email')->textInput(['maxlength' => 255]) ?>
     <?= $form->field($model, 'content')->textarea(['maxlength' => 255]) ?>
+    <?= $form->field($model, 'active')->checkbox() ?>
 
     <div class="form-group">
-        <?= Html::submitButton( 'Опубликовать', ['class' => 'm-t-15 btn btn-primary btn-sm']) ?>
+        <?= Html::submitButton( 'Обновить', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

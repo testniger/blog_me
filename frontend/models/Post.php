@@ -3,7 +3,8 @@
 namespace frontend\models;
 
 use Yii;
-
+use yii\data\ActiveDataProvider;
+use yii\web\NotFoundHttpException;
 /**
  * This is the model class for table "post".
  *
@@ -22,6 +23,16 @@ use Yii;
  */
 class Post extends \yii\db\ActiveRecord
 {
+
+    /**
+     * Статус поста: опубликованн.
+     */
+    const POST_ACTIVE = '1';
+    /**
+     * Статус поста: черновие.
+     */
+    const POST_INACTIVE = '2';
+
     /**
      * @inheritdoc
      */
@@ -54,16 +65,34 @@ class Post extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'title' => 'Title',
-            'alias' => 'Alias',
-            'anons' => 'Anons',
-            'content' => 'Content',
-            'author' => 'Author',
-            'priority' => 'Priority',
-            'active' => 'Active',
+            'title' => 'Заголовок',
+            'alias' => 'Короткий url',
+            'anons' => 'Краткое описание',
+            'content' => 'Текст статьи',
+            'author' => 'Автор',
+            'priority' => 'Приоритет',
+            'active' => 'Показывать',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
+    }
+
+    /**
+     * Возвращает модель поста.
+     * @param int $id
+     * @throws NotFoundHttpException в случае, когда пост не найден или не опубликован
+     * @return Post
+     */
+    public function getPost($id)
+    {
+        if (
+            ($model = Post::findOne($id)) !== null &&
+            $model->isPublished()
+        ) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested post does not exist.');
+        }
     }
 
     /**
@@ -73,4 +102,42 @@ class Post extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Comments::className(), ['post_id' => 'id']);
     }
+
+    /**
+     * Возвращает опубликованные комментарии
+     * @return ActiveDataProvider
+     */
+    public function getPublishedComments()
+    {
+        return new ActiveDataProvider([
+            'query' => $this->getComments()
+                ->where(['active' => Comments::COMMENTS_PUBLISH])
+        ]);
+    }
+
+
+
+    /**
+     * Возвращает опубликованные посты
+     * @return ActiveDataProvider
+     */
+    public function getPublishedPosts()
+    {
+        return new ActiveDataProvider([
+            'query' => Post::find()
+                ->where(['active' => self::POST_ACTIVE])
+                ->orderBy('priority DESC, created_at DESC')
+        ]);
+    }
+
+
+    /**
+     * Возвращает опубликован ли пост
+     * @return bool
+     */
+    protected function isPublished()
+    {
+        return $this->active === self::POST_ACTIVE;
+    }
 }
+

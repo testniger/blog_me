@@ -2,7 +2,10 @@
 
 namespace frontend\models;
 
+
+
 use Yii;
+use yii\web\NotFoundHttpException;
 
 /**
  * This is the model class for table "comments".
@@ -19,6 +22,8 @@ use Yii;
  */
 class Comments extends \yii\db\ActiveRecord
 {
+    const COMMENTS_PUBLISH = 1;
+    const COMMENTS_MODERATE = 0;
     /**
      * @inheritdoc
      */
@@ -33,7 +38,7 @@ class Comments extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['email', 'content', 'created_at', 'post_id'], 'required'],
+            [['email', 'content'], 'required'],
             [['created_at'], 'safe'],
             [['email'], 'email'],
             [['active', 'post_id', 'parent_id'], 'integer'],
@@ -65,4 +70,25 @@ class Comments extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Post::className(), ['id' => 'post_id']);
     }
+
+    public function getComment($id)
+    {
+        if (
+            ($model = Comments::findOne($id)) !== null &&
+            $model->isPublished()
+        ) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested post does not exist.');
+        }
+    }
+    /**
+     * Опубликован ли комментарий.
+     * @return bool
+     */
+    protected function isPublished()
+    {
+        return $this->active === self::COMMENTS_PUBLISH;
+    }
+
 }
