@@ -21,7 +21,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'content')->textarea(['maxlength' => 255]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton( 'Опубликовать', ['class' => 'm-t-15 btn btn-primary btn-sm']) ?>
+        <?= Html::submitButton( 'Написать комментарий', ['class' => 'm-t-15 btn btn-primary btn-sm']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
