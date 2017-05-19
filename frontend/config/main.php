@@ -44,11 +44,9 @@ return [
             'rules' => [
                 '' => 'site/index',
 
-                'POST <controller:[\w-]+>s' => '<controller>/create',
-                '<controller:[\w-]+>s' => '<controller>/index',
 
-                'PUT <controller:[\w-]+>/<id:\d+>'    => '<controller>/update',
-                'DELETE <controller:[\w-]+>/<id:\d+>' => '<controller>/delete',
+                '<controller:[\w-]+>s' => '<controller>/index',
+                '<controller:(post|comment)>/<id:\d+>/<action:(create|update|delete)>' => '<controller>/<action>',
                 '<controller:[\w-]+>/<id:\d+>'        => '<controller>/view'
 
             ],
