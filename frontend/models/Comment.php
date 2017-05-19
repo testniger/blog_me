@@ -20,7 +20,7 @@ use yii\web\NotFoundHttpException;
  *
  * @property Post $post
  */
-class Comments extends \yii\db\ActiveRecord
+class Comment extends \yii\db\ActiveRecord
 {
     const COMMENTS_PUBLISH = 1;
     const COMMENTS_MODERATE = 0;
@@ -74,7 +74,7 @@ class Comments extends \yii\db\ActiveRecord
     public function getComment($id)
     {
         if (
-            ($model = Comments::findOne($id)) !== null &&
+            ($model = Comment::findOne($id)) !== null &&
             $model->isPublished()
         ) {
             return $model;

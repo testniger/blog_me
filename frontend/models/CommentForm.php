@@ -8,7 +8,7 @@
 
 namespace frontend\models;
 
-use frontend\models\Comments;
+use frontend\models\Comment;
 use Yii;
 use yii\base\Model;
 
@@ -50,11 +50,11 @@ class CommentForm extends Model
 
     /**
      * Сохраняет комментарий.
-     * @param Comments $comment модель комментария
+     * @param Comment $comment модель комментария
      * @param array $data данные пришедшие из формы
      * @return bool
      */
-    public function save(Comments $comment, array $data)
+    public function save(Comment $comment, array $data)
     {
         $isLoad = $comment->load([
             'parent_id' => $data['parent_id'],

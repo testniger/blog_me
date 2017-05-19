@@ -4,7 +4,7 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model frontend\models\Comments */
+/* @var $model frontend\models\Comment */
 
 $this->title = 'Create Comments';
 $this->params['breadcrumbs'][] = ['label' => 'Comments', 'url' => ['index']];

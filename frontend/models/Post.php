@@ -19,7 +19,7 @@ use yii\web\NotFoundHttpException;
  * @property string $created_at
  * @property string $updated_at
  *
- * @property Comments[] $comments
+ * @property Comment[] $comments
  */
 class Post extends \yii\db\ActiveRecord
 {
@@ -100,7 +100,7 @@ class Post extends \yii\db\ActiveRecord
      */
     public function getComments()
     {
-        return $this->hasMany(Comments::className(), ['post_id' => 'id']);
+        return $this->hasMany(Comment::className(), ['post_id' => 'id']);
     }
 
     /**
@@ -111,7 +111,7 @@ class Post extends \yii\db\ActiveRecord
     {
         return new ActiveDataProvider([
             'query' => $this->getComments()
-                ->where(['active' => Comments::COMMENTS_PUBLISH])
+                ->where(['active' => Comment::COMMENTS_PUBLISH])
         ]);
     }
 

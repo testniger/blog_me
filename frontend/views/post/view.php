@@ -2,10 +2,10 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
-use frontend\models\Comments;
+use frontend\models\Comment;
 /* @var $this yii\web\View */
 /* @var $model frontend\models\Post */
-/** @var \frontend\models\Comments $comment */
+/** @var \frontend\models\Comment $comment */
 $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => 'Статьи', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
@@ -65,7 +65,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         </ul>
     </li>
-    <?= $this->render('../comments/_form', [
+    <?= $this->render('../comment/_form', [
         'model' => $commentForm
     ]) ?>
 

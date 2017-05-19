@@ -54,7 +54,7 @@ class PostController extends Controller
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
-            'commentForm' => new CommentForm(Url::to(['comments/add', 'id' => $id])),
+            'commentForm' => new CommentForm(Url::to(['comment/add', 'id' => $id])),
         ]);
     }
 
