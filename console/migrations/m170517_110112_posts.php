@@ -15,8 +15,8 @@ class m170517_110112_posts extends Migration
             'author' => $this->string(255)->notNull(),
             'priority' => $this->integer(11)->notNull()->defaultValue(1),
             'active' => $this->integer(11)->notNull()->defaultValue(1),
-            'created_at' => $this->datetime()->notNull(),
-            'updated_at' => $this->datetime(),
+            'created_at' => $this->dateTime()->notNull(),
+            'updated_at' => $this->dateTime(),
         ]);
         $this->createIndex('idx-post-active','post', 'active');
         $this->createIndex('idx-post-priority','post', 'priority');
